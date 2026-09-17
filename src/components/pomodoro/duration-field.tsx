@@ -39,7 +39,7 @@ export default function DurationField({
           onChange={(event) => onChange(event.target.valueAsNumber)}
           className="text-field bg-mist rounded-field v-number-field text-navy h-10 w-35 ps-4 pe-10 md:h-12"
         />
-        <span className="absolute inset-y-0 right-1.5 flex w-8 flex-col">
+        <span className="absolute -inset-y-1 right-1.5 flex w-8 flex-col md:inset-y-0">
           <button
             type="button"
             onClick={() => step(1)}

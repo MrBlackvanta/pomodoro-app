@@ -52,7 +52,7 @@ export default function TimerDial({
           strokeWidth="11"
           strokeLinecap="round"
           strokeDasharray={ringLength}
-          strokeDashoffset={-ringLength * (1 - remaining / total)}
+          strokeDashoffset={ringLength * (remaining / total)}
           transform="rotate(-90 205 205)"
           className="stroke-accent v-ring-sweep"
         />
