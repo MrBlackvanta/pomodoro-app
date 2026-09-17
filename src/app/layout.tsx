@@ -1,0 +1,82 @@
+import { SITE_URL } from "@/app/site";
+import type { Metadata, Viewport } from "next";
+import { Kumbh_Sans, Roboto_Slab, Space_Mono } from "next/font/google";
+import "./globals.css";
+
+const name = "pomodoro";
+const title = `${name} | Focus timer`;
+const description =
+  "A focus timer built on the Pomodoro technique. Work in timed sessions with short and long breaks, set your own lengths, and pick the font and color you like.";
+
+const shareImage = {
+  url: "/opengraph-image.jpg",
+  width: 1200,
+  height: 630,
+  alt: "The pomodoro timer at 17:59 inside a coral progress ring on a dark navy background.",
+};
+
+const kumbhSans = Kumbh_Sans({
+  variable: "--font-kumbh-sans",
+  weight: "700",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const robotoSlab = Roboto_Slab({
+  variable: "--font-roboto-slab",
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title,
+  description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title,
+    description,
+    url: "/",
+    siteName: name,
+    locale: "en_US",
+    type: "website",
+    images: [shareImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [shareImage],
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#1e213f",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`${kumbhSans.variable} ${robotoSlab.variable} ${spaceMono.variable} antialiased`}
+    >
+      <body className="flex min-h-dvh flex-col">{children}</body>
+    </html>
+  );
+}

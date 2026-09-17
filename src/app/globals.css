@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@source not "../../*.md";
+
+@theme inline {
+  --font-sans: var(--font-kumbh-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-roboto-slab), ui-serif, Georgia, serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+}
