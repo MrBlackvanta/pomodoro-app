@@ -1,16 +1,34 @@
 "use client";
 
+import { SITE_TITLE } from "@/app/site";
 import { SettingsIcon } from "@/components/icons";
-import { saveSettings } from "@/lib";
-import { useRef, useState } from "react";
+import {
+  clockFace,
+  modeLabel,
+  previewFont,
+  saveSettings,
+  type Mode,
+  type Settings,
+} from "@/lib";
+import { useEffect, useRef, useState } from "react";
 
 import ModeTabs, { tabId } from "./mode-tabs";
 import SettingsDialog from "./settings-dialog";
 import TimerDial from "./timer-dial";
 import { useSettings } from "./use-settings";
-import { useTimer } from "./use-timer";
+import { useTimer, type TimerStatus } from "./use-timer";
 
 const panelId = "timer";
+
+function tabTitle(status: TimerStatus, remaining: number, mode: Mode) {
+  if (status === "running") {
+    return `${clockFace(remaining)} · ${modeLabel(mode)}`;
+  }
+
+  if (status === "done") return `Time's up · ${modeLabel(mode)}`;
+
+  return SITE_TITLE;
+}
 
 export default function Pomodoro() {
   const settings = useSettings();
@@ -18,14 +36,27 @@ export default function Pomodoro() {
   const [draft, setDraft] = useState(settings);
   const dialog = useRef<HTMLDialogElement>(null);
 
+  useEffect(() => {
+    document.title = tabTitle(timer.status, timer.remaining, timer.mode);
+  }, [timer.status, timer.remaining, timer.mode]);
+
   function openSettings() {
     setDraft(settings);
     dialog.current?.showModal();
   }
 
+  function changeDraft(next: Settings) {
+    setDraft(next);
+    previewFont(next.font);
+  }
+
   function applySettings() {
     saveSettings(draft);
     timer.reset();
+  }
+
+  function cancelSettings() {
+    previewFont(settings.font);
   }
 
   return (
@@ -54,8 +85,9 @@ export default function Pomodoro() {
       <SettingsDialog
         ref={dialog}
         draft={draft}
-        onDraftChange={setDraft}
+        onDraftChange={changeDraft}
         onApply={applySettings}
+        onCancel={cancelSettings}
       />
     </>
   );

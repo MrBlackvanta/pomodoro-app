@@ -1,3 +1,5 @@
+import { clockFace } from "@/lib";
+
 import type { TimerStatus } from "./use-timer";
 
 type TimerDialProps = {
@@ -18,14 +20,6 @@ const actions: Record<TimerStatus, string> = {
   paused: "start",
   done: "restart",
 };
-
-function clockFace(seconds: number) {
-  const minutes = Math.floor(seconds / 60);
-
-  return [minutes, seconds % 60]
-    .map((part) => String(part).padStart(2, "0"))
-    .join(":");
-}
 
 export default function TimerDial({
   id,
@@ -57,7 +51,7 @@ export default function TimerDial({
           className="stroke-accent v-ring-sweep"
         />
       </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pt-8 md:gap-5 md:pt-12">
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pb-2.5 md:gap-5">
         <p
           id={`${id}-remaining`}
           role="timer"

@@ -1,6 +1,14 @@
 "use client";
 
-import { cancelChime, scheduleChime, type Mode, type Settings } from "@/lib";
+import {
+  askToNotify,
+  cancelChime,
+  modeLabel,
+  notifyDone,
+  scheduleChime,
+  type Mode,
+  type Settings,
+} from "@/lib";
 import { useEffect, useState } from "react";
 
 type Session =
@@ -35,15 +43,21 @@ export function useTimer(settings: Settings) {
     if (session.status !== "running") return;
 
     const { endsAt } = session;
-    const timer = setTimeout(() => {
+    const tick = () => {
       const left = Math.ceil((endsAt - Date.now()) / 1000);
 
       setSession(
         left > 0 ? { ...session, remaining: left } : { status: "done" },
       );
-    }, untilNextSecond(endsAt));
+    };
 
-    return () => clearTimeout(timer);
+    const timer = setTimeout(tick, untilNextSecond(endsAt));
+    document.addEventListener("visibilitychange", tick);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("visibilitychange", tick);
+    };
   }, [session]);
 
   function toggle() {
@@ -56,7 +70,12 @@ export function useTimer(settings: Settings) {
 
     const seconds = session.status === "paused" ? session.remaining : total;
 
-    scheduleChime(seconds);
+    askToNotify();
+    scheduleChime(seconds, () => {
+      if (document.hasFocus()) return;
+
+      notifyDone("Time's up", `Your ${modeLabel(mode)} has finished.`);
+    });
     setSession({
       status: "running",
       endsAt: Date.now() + seconds * 1000,

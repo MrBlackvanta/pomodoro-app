@@ -36,17 +36,25 @@ export default function ModeTabs({
   panelId,
   onModeChange,
 }: ModeTabsProps) {
+  const activeTab = modes.findIndex((entry) => entry.id === mode);
+
   return (
     <div
       role="tablist"
       aria-label="Timer mode"
       onKeyDown={moveFocus}
-      className="bg-midnight mt-11 flex h-16 w-full max-w-93.25 rounded-full px-1.5 py-2 md:mt-13.75"
+      className="bg-midnight relative mt-11 flex h-16 w-full max-w-93.25 rounded-full px-1.5 py-2 md:mt-13.75"
     >
+      <span aria-hidden="true" className="absolute inset-x-1.5 inset-y-2 flex">
+        <span
+          style={{ "--tab": activeTab } as React.CSSProperties}
+          className="v-tab-pill bg-accent w-1/3 rounded-full"
+        />
+      </span>
       {modes.map(({ id, label }) => {
         const selected = id === mode;
         const tone = selected
-          ? "bg-accent text-navy"
+          ? "text-navy"
           : "text-periwinkle/55 hover:text-periwinkle";
 
         return (
@@ -59,7 +67,7 @@ export default function ModeTabs({
             aria-controls={panelId}
             tabIndex={selected ? 0 : -1}
             onClick={() => onModeChange(id)}
-            className={`${tone} text-tab md:text-tab-md mono:md:text-tab-mono-md flex-1 rounded-full transition-colors duration-150 ease-out`}
+            className={`${tone} text-tab md:text-tab-md mono:md:text-tab-mono-md relative flex-1 rounded-full transition-colors duration-250 ease-out`}
           >
             {label}
           </button>

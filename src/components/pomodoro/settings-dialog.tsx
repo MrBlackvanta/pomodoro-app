@@ -10,6 +10,7 @@ type SettingsDialogProps = {
   draft: Settings;
   onDraftChange: (draft: Settings) => void;
   onApply: () => void;
+  onCancel: () => void;
 };
 
 const headingClass =
@@ -20,7 +21,13 @@ export default function SettingsDialog({
   draft,
   onDraftChange,
   onApply,
+  onCancel,
 }: SettingsDialogProps) {
+  function dismiss() {
+    onCancel();
+    ref.current?.close();
+  }
+
   function setMinutes(mode: Mode, minutes: number) {
     onDraftChange({ ...draft, minutes: { ...draft.minutes, [mode]: minutes } });
   }
@@ -36,7 +43,9 @@ export default function SettingsDialog({
   return (
     <dialog
       ref={ref}
+      data-accent={draft.accent}
       aria-labelledby="settings-title"
+      onCancel={onCancel}
       className="v-modal m-auto w-full max-w-93.75 bg-transparent px-6 pt-0 pb-6.75 md:max-w-147"
     >
       <form
@@ -53,7 +62,7 @@ export default function SettingsDialog({
           </h2>
           <button
             type="button"
-            onClick={() => ref.current?.close()}
+            onClick={dismiss}
             className="text-navy/50 hover:text-navy relative transition-colors duration-150 ease-out after:absolute after:-inset-3"
           >
             <CloseIcon />
@@ -108,7 +117,7 @@ export default function SettingsDialog({
 
         <button
           type="submit"
-          className="text-apply bg-coral hover:bg-coral-light text-navy absolute bottom-0 left-1/2 h-13.25 w-35 -translate-x-1/2 translate-y-1/2 rounded-full transition-colors duration-150 ease-out"
+          className="text-apply bg-accent hover:bg-accent-light text-navy absolute bottom-0 left-1/2 h-13.25 w-35 -translate-x-1/2 translate-y-1/2 rounded-full transition-colors duration-250 ease-out"
         >
           Apply
         </button>

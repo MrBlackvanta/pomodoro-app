@@ -28,6 +28,10 @@ export const defaultSettings: Settings = {
   accent: "coral",
 };
 
+export function modeLabel(mode: Mode) {
+  return modes.find((entry) => entry.id === mode)?.label ?? mode;
+}
+
 export function clampSession(minutes: number) {
   return Math.min(
     Math.max(Math.round(minutes), shortestSession),
@@ -110,9 +114,13 @@ export function getDefaultSettings() {
   return defaultSettings;
 }
 
+export function previewFont(font: Font) {
+  document.documentElement.dataset.font = font;
+}
+
 export function saveSettings(next: Settings) {
   settings = { ...next, minutes: storedMinutes(next) };
-  document.documentElement.dataset.font = settings.font;
+  previewFont(settings.font);
   document.documentElement.dataset.accent = settings.accent;
   rememberSettings(settings);
   announce();

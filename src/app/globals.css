@@ -12,7 +12,9 @@
   --color-coral: #f87070;
   --color-coral-light: #f98d8d;
   --color-cyan: #70f3f8;
+  --color-cyan-light: #88f5f9;
   --color-purple: #d881f8;
+  --color-purple-light: #e099f9;
   --color-hairline: #e3e1e1;
   --color-stepper: #888a99;
   --color-scrim: #0a0c1c;
@@ -71,21 +73,25 @@
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
 
   --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
   --color-ring: var(--ring);
 }
 
 @layer base {
   :root {
     --accent: var(--color-coral);
+    --accent-light: var(--color-coral-light);
     --ring: var(--color-periwinkle);
   }
 
   [data-accent="cyan"] {
     --accent: var(--color-cyan);
+    --accent-light: var(--color-cyan-light);
   }
 
   [data-accent="purple"] {
     --accent: var(--color-purple);
+    --accent-light: var(--color-purple-light);
   }
 
   html {
@@ -131,10 +137,23 @@
 }
 
 @utility v-ring-sweep {
-  transition: stroke-dashoffset 1s linear;
+  transition:
+    stroke-dashoffset 1s linear,
+    stroke 250ms ease-out;
 
   @media (prefers-reduced-motion: reduce) {
-    transition: none;
+    transition: stroke 250ms ease-out;
+  }
+}
+
+@utility v-tab-pill {
+  translate: calc(var(--tab) * 100%);
+  transition:
+    translate 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: background-color 250ms ease-out;
   }
 }
 

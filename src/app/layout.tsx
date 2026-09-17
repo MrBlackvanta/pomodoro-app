@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/app/site";
+import { SITE_NAME, SITE_TITLE, SITE_URL } from "@/app/site";
 import { Signature } from "@/components/layout";
 import { settingsKey } from "@/lib";
 import type { Metadata, Viewport } from "next";
@@ -7,8 +7,6 @@ import "./globals.css";
 
 const restoreTheme = `try{const{font,accent}=JSON.parse(localStorage.getItem("${settingsKey}"));document.documentElement.dataset.font=font;document.documentElement.dataset.accent=accent}catch{}`;
 
-const name = "pomodoro";
-const title = `${name} | Focus timer`;
 const description =
   "A focus timer built on the Pomodoro technique. Work in timed sessions with short and long breaks, set your own lengths, and pick the font and color you like.";
 
@@ -44,21 +42,21 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title,
+  title: SITE_TITLE,
   description,
   alternates: { canonical: "/" },
   openGraph: {
-    title,
+    title: SITE_TITLE,
     description,
     url: "/",
-    siteName: name,
+    siteName: SITE_NAME,
     locale: "en_US",
     type: "website",
     images: [shareImage],
   },
   twitter: {
     card: "summary_large_image",
-    title,
+    title: SITE_TITLE,
     description,
     images: [shareImage],
   },
