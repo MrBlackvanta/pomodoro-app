@@ -1,4 +1,4 @@
-# pomodoro
+# Pomodoro
 
 My solution to the [Pomodoro app](https://www.frontendmentor.io/challenges/pomodoro-app-KBFnycJ6G) challenge on Frontend Mentor.
 
