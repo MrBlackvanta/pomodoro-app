@@ -1,8 +1,125 @@
 @import "tailwindcss";
 @source not "../../*.md";
 
+@custom-variant serif (&:where([data-font="serif"], [data-font="serif"] *));
+@custom-variant mono (&:where([data-font="mono"], [data-font="mono"] *));
+
+@theme {
+  --color-navy: #1e213f;
+  --color-midnight: #161932;
+  --color-periwinkle: #d7e0ff;
+  --color-mist: #eff1fa;
+  --color-coral: #f87070;
+  --color-coral-light: #f98d8d;
+  --color-cyan: #70f3f8;
+  --color-purple: #d881f8;
+  --color-hairline: #e3e1e1;
+  --color-stepper: #c7c8cf;
+  --color-scrim: #0a0c1c;
+
+  --text-logo: 1.5rem;
+  --text-logo--line-height: 1;
+  --text-logo-md: 2rem;
+  --text-logo-md--line-height: 1;
+  --text-tab: 0.75rem;
+  --text-tab--line-height: 1;
+  --text-tab-md: 0.875rem;
+  --text-tab-md--line-height: 1;
+  --text-tab-mono-md: 0.8125rem;
+  --text-tab-mono-md--line-height: 1;
+  --text-timer: 5rem;
+  --text-timer--line-height: 1;
+  --text-timer-md: 6.25rem;
+  --text-timer-md--line-height: 1;
+  --text-action: 0.875rem;
+  --text-action--line-height: 1;
+  --text-action--letter-spacing: 0.9375em;
+  --text-action-md: 1rem;
+  --text-action-md--line-height: 1;
+  --text-action-md--letter-spacing: 0.9375em;
+  --text-modal-title: 1.25rem;
+  --text-modal-title--line-height: 1;
+  --text-modal-title-md: 1.75rem;
+  --text-modal-title-md--line-height: 1;
+  --text-section: 0.6875rem;
+  --text-section--line-height: 1;
+  --text-section--letter-spacing: 0.3846em;
+  --text-section-md: 0.8125rem;
+  --text-section-md--line-height: 1;
+  --text-section-md--letter-spacing: 0.3846em;
+  --text-field-label: 0.75rem;
+  --text-field-label--line-height: 1;
+  --text-field: 0.875rem;
+  --text-field--line-height: 1;
+  --text-preview: 0.9375rem;
+  --text-preview--line-height: 1;
+  --text-apply: 1rem;
+  --text-apply--line-height: 1;
+
+  --tracking-timer: -0.05em;
+  --tracking-timer-mono: -0.625rem;
+
+  --radius-field: 0.625rem;
+  --radius-modal: 0.9375rem;
+  --radius-modal-md: 1.5625rem;
+
+  --shadow-dial: -50px -50px 100px #272c5a, 50px 50px 100px #121530;
+  --background-image-dial: linear-gradient(to top left, #2e325a, #0e112a);
+}
+
 @theme inline {
   --font-sans: var(--font-kumbh-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-roboto-slab), ui-serif, Georgia, serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
+
+  --color-accent: var(--accent);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  :root {
+    --accent: var(--color-coral);
+    --ring: var(--color-periwinkle);
+  }
+
+  [data-accent="cyan"] {
+    --accent: var(--color-cyan);
+  }
+
+  [data-accent="purple"] {
+    --accent: var(--color-purple);
+  }
+
+  html {
+    @apply font-sans font-bold;
+    color-scheme: dark;
+    overflow-y: scroll;
+  }
+
+  [data-font="serif"] {
+    @apply font-serif;
+  }
+
+  [data-font="mono"] {
+    @apply font-mono;
+  }
+
+  body {
+    @apply bg-navy text-periwinkle;
+  }
+
+  a,
+  button {
+    @apply v-focus-ring;
+  }
+
+  button:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@utility v-focus-ring {
+  &:focus-visible {
+    @apply outline-ring outline-2 outline-offset-4;
+  }
 }
