@@ -157,6 +157,18 @@
   }
 }
 
+@utility v-tab-label {
+  transition: color 150ms ease-out 100ms;
+
+  &:hover {
+    transition-delay: 0s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-delay: 0s;
+  }
+}
+
 @utility v-number-field {
   appearance: textfield;
 

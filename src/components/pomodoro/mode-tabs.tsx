@@ -43,7 +43,7 @@ export default function ModeTabs({
       role="tablist"
       aria-label="Timer mode"
       onKeyDown={moveFocus}
-      className="bg-midnight relative mt-11 flex h-16 w-full max-w-93.25 rounded-full px-1.5 py-2 md:mt-13.75"
+      className="bg-midnight relative z-10 mt-11 flex h-16 w-full max-w-93.25 rounded-full px-1.5 py-2 md:mt-13.75"
     >
       <span aria-hidden="true" className="absolute inset-x-1.5 inset-y-2 flex">
         <span
@@ -67,7 +67,7 @@ export default function ModeTabs({
             aria-controls={panelId}
             tabIndex={selected ? 0 : -1}
             onClick={() => onModeChange(id)}
-            className={`${tone} text-tab md:text-tab-md mono:md:text-tab-mono-md relative flex-1 rounded-full transition-colors duration-250 ease-out`}
+            className={`${tone} v-tab-label text-tab md:text-tab-md mono:md:text-tab-mono-md relative flex-1 rounded-full`}
           >
             {label}
           </button>
