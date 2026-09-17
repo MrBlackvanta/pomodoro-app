@@ -14,7 +14,7 @@ const shareImage = {
   url: "/opengraph-image.jpg",
   width: 1200,
   height: 630,
-  alt: "The name pomodoro set large on a dark navy card, above a one-line description of the timer.",
+  alt: "The pomodoro dial part way through a session, beside the product name and a one-line description of the timer.",
 };
 
 const kumbhSans = Kumbh_Sans({
