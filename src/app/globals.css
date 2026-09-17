@@ -33,20 +33,16 @@
   --text-timer-md--line-height: 1;
   --text-action: 0.875rem;
   --text-action--line-height: 1;
-  --text-action--letter-spacing: 0.9375em;
   --text-action-md: 1rem;
   --text-action-md--line-height: 1;
-  --text-action-md--letter-spacing: 0.9375em;
   --text-modal-title: 1.25rem;
   --text-modal-title--line-height: 1;
   --text-modal-title-md: 1.75rem;
   --text-modal-title-md--line-height: 1;
   --text-section: 0.6875rem;
   --text-section--line-height: 1;
-  --text-section--letter-spacing: 0.3846em;
   --text-section-md: 0.8125rem;
   --text-section-md--line-height: 1;
-  --text-section-md--letter-spacing: 0.3846em;
   --text-field-label: 0.75rem;
   --text-field-label--line-height: 1;
   --text-field: 0.875rem;
@@ -56,6 +52,8 @@
   --text-apply: 1rem;
   --text-apply--line-height: 1;
 
+  --tracking-action: 0.9375em;
+  --tracking-section: 0.3846em;
   --tracking-timer: -0.05em;
   --tracking-timer-mono: -0.625rem;
 
@@ -93,7 +91,6 @@
   html {
     @apply font-sans font-bold;
     color-scheme: dark;
-    overflow-y: scroll;
   }
 
   [data-font="serif"] {
@@ -106,6 +103,10 @@
 
   body {
     @apply bg-navy text-periwinkle;
+  }
+
+  dialog {
+    --ring: var(--color-midnight);
   }
 
   a,
@@ -121,5 +122,73 @@
 @utility v-focus-ring {
   &:focus-visible {
     @apply outline-ring outline-2 outline-offset-4;
+  }
+}
+
+@utility v-tracked-* {
+  letter-spacing: --value(--tracking-*);
+  padding-inline-start: --value(--tracking-*);
+}
+
+@utility v-ring-sweep {
+  transition: stroke-dashoffset 1s linear;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+@utility v-number-field {
+  appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    appearance: none;
+  }
+}
+
+@utility v-modal {
+  opacity: 0;
+  scale: 0.96;
+  transition:
+    opacity 200ms ease-out,
+    scale 200ms ease-out,
+    display 200ms allow-discrete,
+    overlay 200ms allow-discrete;
+
+  &::backdrop {
+    background-color: --alpha(var(--color-scrim) / 50%);
+    opacity: 0;
+    transition:
+      opacity 200ms ease-out,
+      display 200ms allow-discrete,
+      overlay 200ms allow-discrete;
+  }
+
+  &[open],
+  &[open]::backdrop {
+    opacity: 1;
+  }
+
+  &[open] {
+    scale: 1;
+  }
+
+  @starting-style {
+    &[open],
+    &[open]::backdrop {
+      opacity: 0;
+    }
+
+    &[open] {
+      scale: 0.96;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &,
+    &::backdrop {
+      transition: none;
+    }
   }
 }

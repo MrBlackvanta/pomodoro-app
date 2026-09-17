@@ -1,7 +1,11 @@
 import { SITE_URL } from "@/app/site";
+import { Signature } from "@/components/layout";
+import { settingsKey } from "@/lib";
 import type { Metadata, Viewport } from "next";
 import { Kumbh_Sans, Roboto_Slab, Space_Mono } from "next/font/google";
 import "./globals.css";
+
+const restoreTheme = `try{const{font,accent}=JSON.parse(localStorage.getItem("${settingsKey}"));document.documentElement.dataset.font=font;document.documentElement.dataset.accent=accent}catch{}`;
 
 const name = "pomodoro";
 const title = `${name} | Focus timer`;
@@ -24,7 +28,7 @@ const kumbhSans = Kumbh_Sans({
 
 const robotoSlab = Roboto_Slab({
   variable: "--font-roboto-slab",
-  weight: ["400", "700"],
+  weight: "700",
   subsets: ["latin"],
   display: "swap",
   preload: false,
@@ -76,7 +80,11 @@ export default function RootLayout({
       lang="en"
       className={`${kumbhSans.variable} ${robotoSlab.variable} ${spaceMono.variable} antialiased`}
     >
-      <body className="flex min-h-dvh flex-col">{children}</body>
+      <body className="relative flex min-h-dvh flex-col">
+        <script dangerouslySetInnerHTML={{ __html: restoreTheme }} />
+        {children}
+        <Signature />
+      </body>
     </html>
   );
 }
