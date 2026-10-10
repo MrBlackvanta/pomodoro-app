@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @source not "../../*.md";
+@source not "../**/*.test.ts";
+@source not "../**/*.test.tsx";
+@source not "../../tests";
 
 @custom-variant serif (&:where([data-font="serif"], [data-font="serif"] *));
 @custom-variant mono (&:where([data-font="mono"], [data-font="mono"] *));

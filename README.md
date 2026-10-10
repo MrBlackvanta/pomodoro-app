@@ -13,6 +13,8 @@ My solution to the [Pomodoro app](https://www.frontendmentor.io/challenges/pomod
 - React
 - TypeScript
 - Tailwind CSS
+- Vitest
+- Testing Library
 
 ## Author
 
